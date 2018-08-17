@@ -1,7 +1,0 @@
-## Attempt to Automate Data Extraction and/or Cleaning
-
-In this project an attempt was made to build a function to automate the process of Data Extraction and/or Cleaning. The first objective of building an automated function code was achieved, where in a user only needs to provide the data link (“user_link”) and file format (“ext”). The data is imported and stored as a dataframe. Multiple packages are used to achieve this function. Data formats like: **.csv, .xlsx, .xls & .json** can be extracted and stored. 
- 
- 
-
-After multiple efforts, I realized that building a universally acceptable function to clean data is not possible. Data cleaning requires manual intervention to perform specific actions depending on the individual analytical requirement like transformation, creating new calculated variables, etc.
