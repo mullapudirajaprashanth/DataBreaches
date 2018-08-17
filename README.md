@@ -19,7 +19,7 @@ There needs to be a change in the attitudes of business and Government leaders i
 
 ## INTRODUCTION
 
-### Data Science Process
+### DATA SCIENCE PROCESS
 
 Data Science is the study of the generalizable extraction of knowledgeable information from data (Dhar, n.d.).  Data Science involves techniques from multiple fields using scientific methods, algorithms and processes (“Data science,” 2018) which helps in transforming raw data into actionable insights for better decision making.  
 
@@ -34,3 +34,13 @@ Data Exploration through **visualization** is the next step in the process, as i
 The next stage in the analytical process is **models**, they can be custom built according to the requirement for answering the questions precisely. Multiple statistical and other techniques are used in model building. 
 
 The last stage in a data science project is **communication** to the stakeholders (marketing team, senior management, public, etc.) Data Scientists/ Analysts need to efficiently explain how a conclusion was reached through an easily understandable story and providing insights, highlighting the business impact and opportunity. And finally suggest the next course of action.
+
+### DATA BREACHES
+
+According to International Standards Organization (ISO/IEC 27040) a **data breach** is defined as:  *a compromise of security that leads to the accidental or unlawful destruction, loss, alteration, unauthorized disclosure of, or access to protected data transmitted, stored or otherwise processed.*
+
+Data breach can occur by multiple means like: Credit card frauds, hacking, email phishing, hacking, insider attack, unintentional disclosure, physical loss of data, etc. Hacking is known to be the most popular technique and Financial Institutes and Businesses are targeted primarily since they have the highest number of user records. 
+
+Companies/Institutes tend to delay the communication to the consumers regarding any breach that occurs, this builds up a hysteria and negative sentiment towards the company when they finally reveal regarding the breach. By completing this project, we plan to measure the consumer responses and study in general the data breaches that have occurred in the past decade. 
+
+Some of the major data breaches that occurred in the recent past are of Yahoo (3 Billion user records), Equifax (143 Million credit records) and Target (50 Million credit card records). 
