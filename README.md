@@ -23,7 +23,7 @@ There needs to be a change in the attitudes of business and Government leaders i
 
 Data Science is the study of the generalizable extraction of knowledgeable information from data (Dhar, n.d.).  Data Science involves techniques from multiple fields using scientific methods, algorithms and processes (“Data science,” 2018) which helps in transforming raw data into actionable insights for better decision making.  
 
- ![alt text](https://github.com/mullapudirajaprashanth/DataBreaches/tree/master/Images/image.png)
+ ![alt text](https://github.com/mullapudirajaprashanth/DataBreaches/blob/master/Images/image.png)
 
 A typical Data Science model can be explained from the above figure. The first step as a part of any data analysis process would be to extract the data. Importing data into R is not complicated because of the standard libraries and other custom libraries that help in extracting data from multiple sources like files (.xls, .xlsx, .csv, .txt), Databases, JSON, SAS files, Web API, etc. The extracted data can be stored in a dataframe (or a list) for performing analysis. 
 
