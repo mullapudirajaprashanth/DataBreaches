@@ -50,16 +50,16 @@ print(plot1_2, vp = viewport(layout.pos.row = 1, layout.pos.col = 2))
 ### This plot of our study focuses on the number of records breached by organization. 
 We are plotting the data using a pie chart and have used log10 scale on the y-axis for better visualizations. 
   
-  ![alt text](https://github.com/mullapudirajaprashanth/DataBreaches/blob/master/Images/pl1.png)
+  ![alt text](https://github.com/mullapudirajaprashanth/DataBreaches/blob/master/Images/pl2.png)
 
 The types of organization we have in our data are:
-•	BSF – Businesses (Financial and Insurance Services)
-•	BSO – Businesses (Others)
-•	BSR – Businesses (Retail/Merchant - Including Online Retail)
-•	EDU – Educational Institutions
-•	GOV – Government & Military
-•	MED – Healthcare, Medical Providers & Medical Insurance Services
-•	NGO – Nonprofits
+-•	BSF – Businesses (Financial and Insurance Services)
+-•	BSO – Businesses (Others)
+-•	BSR – Businesses (Retail/Merchant - Including Online Retail)
+-•	EDU – Educational Institutions
+-•	GOV – Government & Military
+-•	MED – Healthcare, Medical Providers & Medical Insurance Services
+-•	NGO – Nonprofits
 
 From the pie chart, we observe that the Businesses have the highest number of records lost and ‘BSO’ in particular has over 8.5 Billion records breached over the last 14 years. 
 
