@@ -142,7 +142,125 @@ plot3 <- ggplot(plot3data, aes(x="", y=TotalRecords, fill = Type.of.breach)) +
 print(plot3)
 ```
 
+## Plot 4
+### This plot of our study focuses on giving details about the organization type and type of breach together  
+We have used log10 scale on the y-axis for better visualizations. 
+  
+  ![alt text](https://github.com/mullapudirajaprashanth/DataBreaches/blob/master/Images/pl4.png)
 
+From the above plot, we can go into details about the type of breach in each organization. For example, for the **BSO** organization type, it is the **Hacking** that results in most of their data being lost. The **Card frauds** for all the organizational types are minimal and as we observe, the **Government** and **NGOs** have **no** breaches using the **card fraud** type.
 
+The R code that was used to generate the above plot is below:
 
+```
+# PLOT 4
+
+plot4data <- clean_data %>% 
+  group_by(Type.of.organization, Type.of.breach) %>%
+  summarize(TotalRecords = sum(Total.Records),
+            Numberofbreaches = n())
+
+plot4 <- ggplot(plot4data, aes(x = Type.of.breach, y = TotalRecords, fill = Type.of.organization)) +
+         geom_col() + 
+         scale_y_log10() +
+         geom_text(aes(label=paste0(plot4data$Numberofbreaches, '\n', 
+                             plot4data$TotalRecords)), 
+                    position = position_stack(vjust = 0.5)) +
+         labs(x = 'Type of Breach', y = 'Number of records breached', 
+              title = 'Organization, Breach type, Records') +
+         theme( legend.position = "bottom",
+                panel.grid  = element_blank(),
+                panel.border = element_blank(),
+                plot.title=element_text(hjust = 0.5, size=14, face="bold")) +
+         guides(fill=guide_legend(title="Organization")) + 
+         facet_grid(Type.of.organization~.)
+
+print(plot4)
+```
+
+## Plot 5
+### This plot of our study focuses on creating a basic word cloud that represents a maximum of 100 words has been created based on the “Description.of.Incident” column from the data frame.
+
+  ![alt text](https://github.com/mullapudirajaprashanth/DataBreaches/blob/master/Images/pl5.png)
+  
+The top 7 significant words that appear are: 
+-	“inform”
+-	“breach”
+-	“number”
+-	“secur”
+-	“name”
+-	“employe”
+-	“social”
+
+The R code that was used to generate the above plot is below:
+```
+# PLOT 5
+
+# Function for creating DTM 
+funcTDM <- function(input) {
+  my_source <- VectorSource(input)
+  corpus<-Corpus(my_source)
+  corpus<- tm_map(corpus, tolower)
+  corpus <- tm_map(corpus, removePunctuation)
+  corpus <- tm_map(corpus, removeWords, stopwords("english"))
+  corpus<- tm_map(corpus, stemDocument)
+  
+  #Create the dtm again with the new corpus
+  tdm <- TermDocumentMatrix(corpus)
+  tdm <- removeSparseTerms(tdm, 0.997)
+  input_dmatrix <- as.matrix(tdm)
+  
+  return(input_dmatrix)
+}
+
+# Description - Word cloud
+DescTDM <- funcTDM(clean_data$Description.of.incident)
+Desc_termfreq <- rowSums(DescTDM)
+Desc_wordfreq <- data.frame(terms = names(Desc_termfreq), num = Desc_termfreq)
+
+pal <- brewer.pal(8, "Dark2")
+
+plot5 <- wordcloud(Desc_wordfreq$terms, Desc_wordfreq$num,
+          scale = c(7,.3),
+          min.freq = 10, max.words = 100,
+          random.order = T,
+          rot.per = .15,
+          colors = pal
+)
+
+print(plot5)
+```
+
+## Plot 6
+### This plot of our study on the top 15 organizations with most records breached over the years along with the number of times the company experienced breaches.  
+
+  ![alt text](https://github.com/mullapudirajaprashanth/DataBreaches/blob/master/Images/pl6.png)
+
+From the plot above, we can observe that **Yahoo** company has the highest number of breached records compromised. Over a Billion records were breached at Yahoo and the breaches occurred 2 times. The plot above displays the top 15 breaches of all time, and although most companies in the list faced breaches only once there are companies like Yahoo, MySpace and Ebay that have 2 breaches in a period of 14 years. The recent major breach of **Equifax** Corporation also makes to the list being in the 11th position where around 143 Million records were compromised. 
+
+The R code that was used to generate the above plot is below:
+```
+# PLOT 6
+
+plot6data <- clean_data %>% 
+  group_by(Company) %>%
+  summarize(TotalRecords = sum(Total.Records),
+            Numberofbreaches = n()) %>% 
+  top_n(15, TotalRecords)
+ 
+plot6 <- ggplot(plot6data, aes(x = reorder(Company, TotalRecords),
+                               y = TotalRecords, fill = "Dark2")) + 
+         geom_col() + 
+         geom_text(aes(label=plot6data$Numberofbreaches),position = position_stack(vjust = 0.5)) +
+         labs(x = 'Company', y = 'Number of records breached', 
+              title = 'Top 15 Companies with most records breached') +
+         theme( legend.position = "none",
+                 panel.grid  = element_blank(),
+                 panel.border = element_blank(),
+                 plot.title=element_text(hjust = 0.5, size=14, face="bold")) +
+         coord_flip()
+  
+
+print(plot6)
+```
 
