@@ -53,15 +53,15 @@ We are plotting the data using a pie chart and have used log10 scale on the y-ax
   ![alt text](https://github.com/mullapudirajaprashanth/DataBreaches/blob/master/Images/pl2.png)
 
 The types of organization we have in our data are:
--•	BSF – Businesses (Financial and Insurance Services)
--•	BSO – Businesses (Others)
--•	BSR – Businesses (Retail/Merchant - Including Online Retail)
--•	EDU – Educational Institutions
--•	GOV – Government & Military
--•	MED – Healthcare, Medical Providers & Medical Insurance Services
--•	NGO – Nonprofits
+-	BSF – Businesses (Financial and Insurance Services)
+-	BSO – Businesses (Others)
+-	BSR – Businesses (Retail/Merchant - Including Online Retail)
+-	EDU – Educational Institutions
+-	GOV – Government & Military
+-	MED – Healthcare, Medical Providers & Medical Insurance Services
+-	NGO – Nonprofits
 
-From the pie chart, we observe that the Businesses have the highest number of records lost and ‘BSO’ in particular has over 8.5 Billion records breached over the last 14 years. 
+From the pie chart, we observe that the Businesses have the highest number of records lost and ‘BSO’ in particular has over **8.5 Billion records** breached over the last 14 years. 
 
 The R code that was used to generate the above plot is below:
 ```
@@ -92,6 +92,56 @@ plot2 <- ggplot(plot2data, aes(x="", y=TotalRecords, fill = Type.of.organization
 
 print(plot2)
 ```
+
+## Plot 3
+### This plot of our study focuses on the number of records breached by the type of breach occurred.  
+We are plotting the data using a pie chart and have used log10 scale on the y-axis for better visualizations. 
+  
+  ![alt text](https://github.com/mullapudirajaprashanth/DataBreaches/blob/master/Images/pl3.png)
+  
+We can better understand the different types of breaches that take place (Privacy Rights Taxonomy, n.d.)
+
+-	Payment Card Fraud (CARD): Fraud involving debit and credit cards that is not accomplished via hacking. For example, skimming devices at point-of-service terminals.
+-	Hacking or Malware (HACK): Hacked by outside party or infected by malware
+-	Insider (INSD): Insider (someone with legitimate access intentionally breaches information – such as an employee, contractor or customer)
+-	Physical Loss (PHYS): Includes paper documents that are lost, discarded or stolen (non-electronic)
+-	Portable Device (PORT): Lost, discarded or stolen laptop, PDA, smartphone, memory stick, CDs, hard drive, data tape, etc.
+-	Stationary Device (STAT): Stationary computer loss (lost, inappropriately accessed, discarded or stolen computer or server not designed for mobility)
+-	Unintended Disclosure (DISC): Unintended disclosure (not involving hacking, intentional breach or physical loss – for example: sensitive information posted publicly, mishandled or sent to the wrong party via publishing online, sending in an email, sending in a mailing or sending via fax)
+-	Unknown (UNKN)
+
+From the pie chart, we can observe that **HACK** is the number one method used during data breaches. The **highest** (75.027 %) number of records were compromised using **Hacking** and the **least** 0.089% records compromised using **Card Frauds**.  
+
+The R code that was used to generate the above plot is below:
+```
+# PLOT 3
+
+plot3data <- clean_data %>% 
+  group_by(Type.of.breach) %>%
+  summarize(TotalRecords = sum(Total.Records))
+
+plot3 <- ggplot(plot3data, aes(x="", y=TotalRecords, fill = Type.of.breach)) + 
+         geom_bar(width = 1, stat = "identity") + 
+         scale_y_log10() + 
+         labs(title = 'Number of Records breached by Type of breach - log10 scale') +
+         geom_text(aes(label=paste0('Type: ',plot3data$Type.of.breach, '\n', 
+                             plot3data$TotalRecords, '\n', 
+                             round(plot3data$TotalRecords / sum(plot3data$TotalRecords) * 100, 3),
+                             "%")), 
+                    position = position_stack(vjust = 0.5)) +
+         coord_polar("y") +
+         theme(legend.position = "none",
+               axis.title.x = element_blank(),
+               axis.title.y = element_blank(),
+               axis.text = element_blank(),
+               axis.ticks = element_blank(),
+               panel.grid  = element_blank(),
+               panel.border = element_blank(),
+               plot.title=element_text(hjust = 0.5, size=14, face="bold"))
+
+print(plot3)
+```
+
 
 
 
