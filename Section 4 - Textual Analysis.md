@@ -109,4 +109,86 @@ The Terms in the data extracted with a minimum frequency of 20 are shown below:
 
   ![alt text](https://github.com/mullapudirajaprashanth/DataBreaches/blob/master/Images/tw4.png)
 
+## 4) Sentiment Analysis:
+
+On conducting sentiment analysis on the recent extracted data, we observe the following sentiment scores. The **minimum** score being **-3.0** and **maximum** score being **+3.0** with a **mean** of **-0.1626**.
+
+  ![alt text](https://github.com/mullapudirajaprashanth/DataBreaches/blob/master/Images/tw5.png)
+  
+The R code used to obtain the above results is as follows. An **user-defined** function **score.sentiment** is defined to perform the necessary job. 
+
+```
+# SENTIMENT ANALYSIS
+
+pos = readLines("positive_words.txt")
+neg = readLines("negative_words.txt")
+
+tweet_df <- as.data.frame(list)
+
+require("plyr")
+require("stringr")
+```
+
+```
+#sentiment analysis function
+score.sentiment = function(sentences, pos.words, neg.words, .progress='none')
+{
+  # Parameters
+  # sentences: vector of text to score
+  # pos.words: vector of words of postive sentiment
+  # neg.words: vector of words of negative sentiment
+  # .progress: passed to laply() to control of progress bar
+  
+  # create simple array of scores with laply
+  scores = laply(sentences,
+                 function(sentence, pos.words, neg.words)
+                  {
+                    # split sentence into words with str_split (stringr package)
+                    word.list <- str_split(sentence, "\\s+")
+                    words <- unlist(word.list)
+                    
+                    # compare words to the dictionaries of positive & negative terms
+                    pos.matches <- match(words, pos)
+                    neg.matches <- match(words, neg)
+                    
+                    # get the position of the matched term or NA
+                    # we just want a TRUE/FALSE
+                    pos.matches <- !is.na(pos.matches)
+                    neg.matches <- !is.na(neg.matches)
+                    
+                    # final score
+                    score <- sum(pos.matches) - sum(neg.matches)
+                    return(score)
+                  }, pos.words, neg.words, .progress=.progress )
+  # data frame with scores for each sentence
+  scores.df <- data.frame(text=sentences, score=scores)
+  return(scores.df)
+}
+```
+```
+sentiment_score <- score.sentiment(list, pos, neg, .progress='text')
+summary(sentiment_score)
+View(sentiment_score)
+```
+
+```
+#Convert sentiment scores from numeric to character to enable the gsub function 
+sentiment_score$sentiment <- as.character(sentiment_score$score)
+
+#After looking at the summary(sentiment_Score$sentiment) decide on a threshold for the sentiment labels
+sentiment_score$sentiment <- gsub("^0$", "Neutral", sentiment_score$sentiment)
+sentiment_score$sentiment <- gsub("^1$|^2$|^3$|^4$", "Positive", sentiment_score$sentiment)
+sentiment_score$sentiment <- gsub("^5$|^6$|^7$|^8$|^9$|^10$|^11$|^12$|^13$|^14$|^15$|^16$|^17$|^18$|^19$|^20$|^21$|^22$|^23$|^24$|^25$", "Very Positive", sentiment_score$sentiment)
+sentiment_score$sentiment <- gsub("^-1$|^-2$|^-3$|^-4$", "Negative", sentiment_score$sentiment)
+sentiment_score$sentiment <- gsub("^-5$|^-6$|^-7$|^-8$|^-9$|^-10$|^-11$|^-12$", "Very Negative", sentiment_score$sentiment)
+
+View(sentiment_score)
+
+#adding sentiment to train
+tweet_df$Sentimentscore <- sentiment_score[,2]
+tweet_df$SentimentLabel <- sentiment_score[,3]
+View(tweet_df)
+```
+
+From the sentiment analysis conducted on the extracted data, I hereby conclude that the sentiments are not so positive and not so negative. The average sentiment score is near neutral. 
 
