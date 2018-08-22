@@ -192,3 +192,39 @@ View(tweet_df)
 
 From the sentiment analysis conducted on the extracted data, I hereby conclude that the sentiments are not so positive and not so negative. The average sentiment score is near neutral. 
 
+# Tweets on the day of the Breach Declaration - (Day - 0)
+
+I was curious to find the sentiments on the day of breach declaration. Since there is a limitation in Extracting Twitter data and its been months since the breach occurred, it was not possible for me to extracted data from twitter during the specific dates. 
+
+With the help of online sources, I was able to get the Twitter data extracted on the declaration day. The **.csv** file is stored in the working directory and imported as a data frame into **breach_tweets** using the user-defined function **download** that is created.
+
+```
+# Data breach day - 0
+# Gather user input - location / name of input data
+user_link<-"master_equifax.csv"
+ext<-"csv" 
+
+breach_tweets <- download(user_link, ext)
+
+head(breach_tweets)
+glimpse(breach_tweets)
+```
+
+The glimpse of the data is observed. We are interested in the **comments.message** column of the data frame. 
+
+ ![alt text](https://github.com/mullapudirajaprashanth/DataBreaches/blob/master/Images/tw6.png)
+ 
+ Using the same **score.sentiment** function, the sentiment analysis has been performed on the **comments.message** column. We observe the following sentiment scores. The **minimum** score being **-9.0** and **maximum** score being **+6.0** with a **mean** of **-0.395**. The sentiments were highly negative in this case. 
+ 
+ ![alt text](https://github.com/mullapudirajaprashanth/DataBreaches/blob/master/Images/tw7.png)
+
+The R code used to perform sentiment analysis is as follows:
+
+```
+# Calculating the sentiment score
+sentiment_score <- score.sentiment(breach_tweets$comments.message, pos, neg, .progress='text')
+summary(sentiment_score)
+View(sentiment_score)
+```
+
+
