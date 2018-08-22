@@ -17,6 +17,8 @@ vi) Yahoo has the highest number of records breached over all time and also face
  
 There needs to be a change in the attitudes of business and Government leaders internationally to take the threat of data breaches seriously by improving cybersecurity measures. Consumers who bear the brunt of all types of attacks need to be addressed and remedies provided by the companies.  Organization’s top Management will be under heavy scrutiny, Healthcare will be the next big area for data breaches, IoT has increased the risk for data security (Experian, 2015) 
 
+*I would like to give a special mention thanking my Professor Kishen Iyengar and my guide @aparnaadiraju92 for all the help and suggestions in completing my project*
+
 ## INTRODUCTION
 
 ### DATA SCIENCE PROCESS
